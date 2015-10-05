@@ -1,7 +1,29 @@
-# Impact-monitor
+# Impact Monitor
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+A simple client for monitoring your requests, built in Ember. Here are the
+configuration options with their default values:
+
+```js
+ENV = {
+  serverURL: 'http://impact-server.herokuapp.com/impacts',
+  dataURL: 'https://s3.amazonaws.com/public-music/data.csv',
+  dataPreviewURL: 'https://s3.amazonaws.com/public-music/data.preview.csv'
+};
+```
+
+The server is any URL that accepts `offset` and `limit` url params, and
+responds with an array of requests.
+
+```json
+> GET /impacts?offset=5&limit=10
+=> [
+  [5,"patch","http://example.com/path/50",4142139,6504215,3848435],
+  [6,"put","http://example.com/path/51",798655,3165923,5029839],
+  [7,"options","http://example.com/path/52",4370254,481938,6157220],
+  [8,"patch","http://example.com/path/53",6963838,5411225,9930909],
+  [9,"delete","http://example.com/path/54",804587,1888125,5716086]
+]
+```
 
 ## Prerequisites
 

@@ -2,6 +2,9 @@
 
 module.exports = function(environment) {
   var ENV = {
+    serverURL: 'http://impact-server.herokuapp.com/impacts',
+    dataURL: 'https://s3.amazonaws.com/public-music/data.csv',
+    dataPreviewURL: 'https://s3.amazonaws.com/public-music/data.preview.csv',
     modulePrefix: 'impact-monitor',
     environment: environment,
     baseURL: '/',
@@ -11,6 +14,16 @@ module.exports = function(environment) {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
       }
+    },
+
+    contentSecurityPolicy: {
+      'default-src': "'none'",
+      'script-src': "'self'",
+      'font-src': "'self'",
+      'connect-src': "'self' https://s3.amazonaws.com",
+      'img-src': "'self'",
+      'style-src': "'self'",
+      'media-src': "'self'"
     },
 
     APP: {
@@ -25,6 +38,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.serverURL = '/impacts';
   }
 
   if (environment === 'test') {
@@ -37,10 +51,6 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
-  }
-
-  if (environment === 'production') {
-
   }
 
   return ENV;

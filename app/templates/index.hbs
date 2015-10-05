@@ -1,0 +1,46 @@
+{{outlet}}
+
+{{loading-spinner}}
+
+<div id="header">
+  {{request-search}}
+  {{#link-to 'index.help' class="help"}}Help (?){{/link-to}}
+</div>
+
+{{#if dashboard.store.hasError}}
+  <p class="error">
+    We're sorry, it looks like an error occured. Please refresh the page
+    and try again.
+
+    <a href="#" {{action 'closeError'}}>close</a>
+  </p>
+{{/if}}
+
+{{#if dashboard.requests}}
+  {{#infinite-scroll onScroll=(action 'loadMore')}}
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Method</th>
+        <th>URL</th>
+
+        <th>Requests</th>
+        <th>Bytes</th>
+        <th>Difficulty</th>
+      </tr>
+
+      {{#each dashboard.requests as |request i|}}
+        {{request-row request=request index=i}}
+      {{else}}
+        <tr><td colspan="6">No results found!</td></tr>
+      {{/each}}
+
+    </table>
+  {{/infinite-scroll}}
+{{else if ajax.isLoading}}
+  <p class="is-loading">Loading...</p>
+{{else}}
+  <p class="no-results">
+    No requests match your filter.
+  </p>
+{{/if}}
